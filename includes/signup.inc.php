@@ -21,10 +21,15 @@ if (isset($_POST['signup'])) {
 
     $signUser->userSignup();
 
+  
+
 
     // redirecting
 
-    header("location:../login.php");
+    // header("Location:../login.php");
+	header('location: http://localhost/index.php');
+
+    // echo "<script>window.location.href='index.php'</script>";
 
 
 
