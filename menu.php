@@ -1,3 +1,23 @@
+
+<?php
+// Database connection details
+$host = 'localhost';
+$dbname = 'urbanbite';
+$username = 'root';
+$password = '';
+
+// Create connection
+$conn = new mysqli($host, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT name, description, image , price FROM dish";
+$result = $conn->query($sql);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,42 +44,29 @@
     </div>
 </nav>
 <body>
+
+<div class=" max-w-7xl mx-auto   bg-red-400">
 <?php
-// Database connection details
-$host = 'localhost';
-$dbname = 'urbanbite';
-$username = 'root';
-$password = '';
-
-// Create connection
-$conn = new mysqli($host, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT name, description, image , price FROM dish";
-$result = $conn->query($sql);
-
 if ($result->num_rows > 0) {
     // Output data of each row
     while($row = $result->fetch_assoc()) {
 
-        echo '<div class= "max-w-7xl bg-red-300 mx-auto flex flex-col">';
-        echo '<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">';
-        echo '<img class="rounded-t-lg h-60 w-full" src="Images/' . $row["image"] . '" alt="" />';
+       
+        echo '<form  action="includes/orders.inc.php" method="POST" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">';
+        echo '<img class="rounded-t-lg h-60 w-full" name="image" src="Images/' . $row["image"] . '" alt="" />';
         echo '<div class="p-5">';
-        echo '<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">' . $row["name"] . '</h5>';
+        echo '<input type="text" name="name" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" value="' . $row["name"] . '" readonly>';
         echo '<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">' . $row["description"] . '</p>';
-        echo '<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">' . $row["price"] . 'ksh' .  '</p>';
-        echo '<input type="number" name="username" placeholder="quantity">';
-        echo '   <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        echo '<input type="text" name="price" class="mb-3 font-normal text-gray-700 dark:text-gray-400" value="' . $row["price"] . 'ksh" readonly>';
+
+        echo '<input type="number" name="quantity" placeholder="quantity">';
+        echo '   <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Order
       </button>';
-        echo '</div></div>';
+        echo '</div>
+        </form>';
 
-        echo '</div>';
+       
     }
 } else {
     echo "0 results";
@@ -67,6 +74,8 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+
+</div>
 
 </body>
 </html>

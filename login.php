@@ -52,7 +52,7 @@
 <body class="bg-gray-100 p-4 ">
 
 <section class="max-w-md mx-auto mt-44 bg-white shadow-md p-4 justify-center rounded-lg">
-    <h1 class="text-2xl font-semibold text-center text-gray-800 mb-4">Signup</h1>
+    <h1 class="text-2xl font-semibold text-center text-gray-800 mb-4">Login Into Your Account</h1>
     <form action="includes/login.inc.php" method="post">
    
         <div class="mb-4">

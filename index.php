@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,13 +22,29 @@
     </div>
 
     <ul class=" w-64  flex justify-around items-center ">
-        <li><a href="">Menu</a></li>
+        <li><a href="./menu.php">Menu</a></li>
         <li><a href="">Table Reservation</a></li>
     </ul>
 
     <div class="w-60 flex justify-around items-center">
+
+    <?php 
+    if (isset($_SESSION["users_id"])) {
+      
+      ?>
+        <li class="list-none"><a href="./signup.php"><?php echo $_SESSION["name"]; ?></a></li>
+        <li class="list-none"><a href="./login.php">Logout</a></li>
+        <?php 
+    }
+    else 
+    {
+      ?>
         <li class="list-none"><a href="./signup.php">Signup</a></li>
-        <li class="list-none"><a href="./login.php">Login</a></li>
+        <li class="list-none"><a href="./logout.php">Login</a></li>
+        <?php
+    }
+    ?>
+    
     </div>
     </div>
 </nav>

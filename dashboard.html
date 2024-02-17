@@ -28,3 +28,53 @@
       
 </body>
 </html>
+
+
+<form action="">
+  <label for="">Enter your name</label>
+  <input type="text" name="" id="">
+
+  <label for="">Enter your email </label>
+  <input type="text" name="" id="">
+
+  <label for="">Enter your adm</label>
+  <input type="text" name="" id="">
+
+  <button type="submit">SUbmit</button>
+</form>
+
+<script>
+  function validateForm() {
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var adm = document.getElementById('adm').value.trim();
+    
+    // Check if name field is empty
+    if (name === '') {
+      alert('Please enter your name');
+      return false;
+    }
+    
+    // Check if email field is empty
+    if (email === '') {
+      alert('Please enter your email');
+      return false;
+    }
+    
+    // Check if email is valid
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address');
+      return false;
+    }
+    
+    // Check if adm field is empty
+    if (adm === '') {
+      alert('Please enter your adm');
+      return false;
+    }
+    
+    // Validation passed
+    return true;
+  }
+  </script>
