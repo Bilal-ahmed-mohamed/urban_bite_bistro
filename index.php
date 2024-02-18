@@ -33,14 +33,14 @@ session_start();
       
       ?>
         <li class="list-none"><a href="./signup.php"><?php echo $_SESSION["name"]; ?></a></li>
-        <li class="list-none"><a href="./login.php">Logout</a></li>
+        <li class="list-none"><a href="./logout.php">Logout</a></li>
         <?php 
     }
     else 
     {
       ?>
         <li class="list-none"><a href="./signup.php">Signup</a></li>
-        <li class="list-none"><a href="./logout.php">Login</a></li>
+        <li class="list-none"><a href="./login.php">Login</a></li>
         <?php
     }
     ?>

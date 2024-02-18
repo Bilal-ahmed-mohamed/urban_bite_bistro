@@ -1,6 +1,8 @@
-
 <?php
-// Database connection details
+session_start();
+?>
+<?php
+
 $host = 'localhost';
 $dbname = 'urbanbite';
 $username = 'root';
@@ -38,8 +40,22 @@ $result = $conn->query($sql);
     </ul>
 
     <div class="w-60 flex justify-around items-center">
+    <?php 
+    if (isset($_SESSION["users_id"])) {
+      
+      ?>
+        <li class="list-none"><a href="./signup.php"><?php echo $_SESSION["name"]; ?></a></li>
+        <li class="list-none"><a href="./logout.php">Logout</a></li>
+        <?php 
+    }
+    else 
+    {
+      ?>
         <li class="list-none"><a href="./signup.php">Signup</a></li>
         <li class="list-none"><a href="./login.php">Login</a></li>
+        <?php
+    }
+    ?>
     </div>
     </div>
 </nav>
@@ -60,7 +76,7 @@ if ($result->num_rows > 0) {
         echo '<input type="text" name="price" class="mb-3 font-normal text-gray-700 dark:text-gray-400" value="' . $row["price"] . 'ksh" readonly>';
 
         echo '<input type="number" name="quantity" placeholder="quantity">';
-        echo '   <button type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        echo '   <button type="submit" name="order" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Order
       </button>';
         echo '</div>
