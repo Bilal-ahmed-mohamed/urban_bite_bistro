@@ -61,7 +61,7 @@ $result = $conn->query($sql);
 </nav>
 <body>
 
-<div class=" max-w-7xl mx-auto   bg-red-400">
+<div class=" max-w-7xl mx-auto bg-gray-100 flex flex-wrap justify-between py-5 space-y-2">
 <?php
 if ($result->num_rows > 0) {
     // Output data of each row
@@ -69,16 +69,18 @@ if ($result->num_rows > 0) {
 
        
         echo '<form  action="includes/orders.inc.php" method="POST" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">';
+        echo '<input type="hidden" name="image" value="' . htmlspecialchars($row["image"]) . '" />'; 
         echo '<img class="rounded-t-lg h-60 w-full" name="image" src="Images/' . $row["image"] . '" alt="" />';
         echo '<div class="p-5">';
         echo '<input type="text" name="name" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" value="' . $row["name"] . '" readonly>';
         echo '<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">' . $row["description"] . '</p>';
-        echo '<input type="text" name="price" class="mb-3 font-normal text-gray-700 dark:text-gray-400" value="' . $row["price"] . 'ksh" readonly>';
-
-        echo '<input type="number" name="quantity" placeholder="quantity">';
+        echo '<div class="bg-red-300 space-x-9">';
+        echo '<input class="w-20 h-10" type="text" name="price" class="mb-3 font-normal text-gray-700 dark:text-gray-400" value="' . $row["price"] . 'ksh" readonly>';
+        echo '<input class="w-20 h-10" type="number" name="quantity" placeholder="quantity">';
         echo '   <button type="submit" name="order" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Order
       </button>';
+        echo '</div>';
         echo '</div>
         </form>';
 

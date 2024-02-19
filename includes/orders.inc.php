@@ -6,13 +6,11 @@ if (isset($_POST["order"])) {
     
    $image = $_POST["image"];
    $name =  $_POST["name"];
-   $price = $_POST["price"];
-   $quantity = $_POST["quantity"];
    $users_id = $_SESSION["users_id"];
- 
 
-
-   $total_amount = $price * $quantity;
+$price = filter_var($_POST["price"], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+$quantity = (int)$_POST["quantity"];
+$total_amount = $price * $quantity;
 
 
 
@@ -38,13 +36,11 @@ class sendOrder extends db {
     
     protected function orderOrdered($image,$name,$quantity,$users_id,$total_amount) {
         $stmt = $this->connect()->prepare("INSERT INTO orders (users_id,image,name,quantity,total_amount) VALUES (?,?,?,?,?)");
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
             if (!$stmt->execute([$image,$name,$quantity,$users_id,$total_amount])) {
                 header("Location: order.php?error=stmtfailed");
                 exit();
-            }
-        
+            } 
 
     }
 }
@@ -65,6 +61,32 @@ class orderContr extends sendOrder {
         $this->users_id= $users_id;
         $this->total_amount = $total_amount;
     }
+
+    protected function userExists($users_id) {
+        $stmt = $this->connect()->prepare("SELECT COUNT(*) FROM users WHERE users_id = ?");
+        $stmt->execute([$users_id]);
+        $count = $stmt->fetchColumn();
+        return $count > 0;
+    }
+    
+    protected function orderOrdered($image, $name, $quantity, $users_id, $total_amount) {
+        if (!$this->userExists($users_id)) {
+            header("Location: order.php?error=pleaselogin");
+            exit();
+        }
+    
+        try {
+            $stmt = $this->connect()->prepare("INSERT INTO orders (users_id, image, name, quantity, total_amount) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$users_id, $image, $name, $quantity, $total_amount]);
+        } catch (PDOException $e) {
+            // Log the exception and handle the error
+            error_log("PDOException: " . $e->getMessage());
+            echo "Error: " . $e->getMessage();
+            header("Location: order.php?error=dberror");
+            exit();
+        }
+    }
+    
 
     public function orderBooked() {
         if (!$this->emptyInput()) {

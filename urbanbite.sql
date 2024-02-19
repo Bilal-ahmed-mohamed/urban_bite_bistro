@@ -72,7 +72,7 @@ INSERT INTO `dish` (`dish_id`, `name`, `type`, `description`, `price`, `image`) 
 --
 
 CREATE TABLE `orders` (
-  `orders_id` int(11) NOT NULL,
+  `orders_id` int(11) NOT NULL AUTO_INCREMENT,
   `users_id` int(11) NOT NULL,
   `image` VARCHAR(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -135,7 +135,7 @@ ALTER TABLE `dish`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`orders_id`),
-  ADD UNIQUE KEY `orders_users_id_unique` (`users_id`);
+
 
 --
 -- Indexes for table `order_items`
@@ -194,6 +194,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`users_id`) REFERENCES `users` (`users_id`);
+
+  
 
 --
 -- Constraints for table `order_items`
