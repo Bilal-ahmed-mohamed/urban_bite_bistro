@@ -29,14 +29,14 @@ $result = $conn->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <nav class="w-full ">
-    <div class="max-w-7xl mx-auto bg-yellow-600  flex justify-between ">
+    <div class="max-w-7xl mx-auto   flex justify-between ">
     <div class="rounded-lg">
         <img class="w-20 h-20" src="./Images/logo.webp" alt="">
     </div>
 
     <ul class=" w-64  flex justify-around items-center ">
         <li><a href="">Menu</a></li>
-        <li><a href="">Table Reservation</a></li>
+        <!-- <li><a href="">Table Reservation</a></li> -->
     </ul>
 
     <div class="w-60 flex justify-around items-center">
@@ -74,10 +74,10 @@ if ($result->num_rows > 0) {
         echo '<div class="p-5">';
         echo '<input type="text" name="name" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white" value="' . $row["name"] . '" readonly>';
         echo '<p class="mb-3 font-normal text-gray-700 dark:text-gray-400">' . $row["description"] . '</p>';
-        echo '<div class="bg-red-300 space-x-9">';
+        echo '<div class=" space-x-9">';
         echo '<input class="w-20 h-10" type="text" name="price" class="mb-3 font-normal text-gray-700 dark:text-gray-400" value="' . $row["price"] . 'ksh" readonly>';
         echo '<input class="w-20 h-10" type="number" name="quantity" placeholder="quantity">';
-        echo '   <button type="submit" name="order" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        echo '   <button type="submit" name="order" class="bg-yellow-600 hover:bg-yellow-700  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
         Order
       </button>';
         echo '</div>';

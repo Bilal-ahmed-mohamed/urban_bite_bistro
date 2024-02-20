@@ -15,15 +15,15 @@ session_start();
 <body>
 
  
-<nav class="w-full ">
-    <div class="max-w-7xl mx-auto bg-yellow-600  flex justify-between ">
+<nav class="w-full   ">
+    <div class="max-w-7xl mx-auto bg-yellow-950  flex justify-between ">
     <div class="rounded-lg">
         <img class="w-20 h-20" src="./Images/logo.webp" alt="">
     </div>
 
     <ul class=" w-64  flex justify-around items-center ">
         <li><a href="./menu.php">Menu</a></li>
-        <li><a href="">Table Reservation</a></li>
+        <!-- <li><a href="">Table Reservation</a></li> -->
     </ul>
 
     <div class="w-60 flex justify-around items-center">
@@ -62,8 +62,8 @@ session_start();
 
     
             <div class="w-4/12 mt-10 mx-auto flex justify-center items-center space-x-9">
-        <button type="submit" class=" text-white bg-yellow-600 hover:bg-yellow-700 font-medium rounded-lg text-sm px-5 py-3 text-center">Reserve a table</button>
-        <button type="submit" class=" text-white bg-yellow-600  hover:bg-yellow-700 font-medium rounded-lg text-sm px-5 py-3 text-center">Order best meals</button>
+ 
+        <button type="submit" class=" text-white bg-yellow-600  hover:bg-yellow-700 font-medium rounded-lg text-sm px-5 py-3 text-center"><a href="./menu.php">Order best meals</a></button>
             </div>
     
     
@@ -90,7 +90,7 @@ session_start();
         </div>
         <div class="w-full space-x-36   ">
           <span class="inline-block bg-purple-200 rounded-full px-3 py-1 ml-7 text-sm font-semibold text-gray-700 mr-2 mb-2">$15.00</span>
-          <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+          <button class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
             Order
           </button>
         </div>
@@ -110,7 +110,7 @@ session_start();
         </div>
         <div class="w-full space-x-36   ">
           <span class="inline-block bg-purple-200 rounded-full px-3 py-1 ml-7 text-sm font-semibold text-gray-700 mr-2 mb-2">$15.00</span>
-          <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+          <button class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
             Order
           </button>
         </div>
@@ -131,8 +131,8 @@ session_start();
         </div>
         <div class="px-6 pt-4 pb-2">
           <span class="inline-block bg-purple-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">$15.00</span>
-          <button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-            Buy Now
+          <button class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+            Order
           </button>
         </div>
       </div>

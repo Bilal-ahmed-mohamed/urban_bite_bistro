@@ -71,7 +71,7 @@ class orderContr extends sendOrder {
     
     protected function orderOrdered($image, $name, $quantity, $users_id, $total_amount) {
         if (!$this->userExists($users_id)) {
-            header("Location: order.php?error=pleaselogin");
+            header("Location: ./login.php?error=pleaselogin");
             exit();
         }
     
@@ -109,7 +109,7 @@ $orderDone = new orderContr($image,$name,$quantity,$users_id,$total_amount);
 $orderDone->orderBooked();
 
 
-header("Location:..order.php");
+header("Location:../orders.php");
 exit;
 
 
