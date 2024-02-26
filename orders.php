@@ -64,6 +64,50 @@ $result = $stmt->get_result();
     </div>
 </nav>
 
+<?php
+// Place this PHP code block at the beginning of your PHP script, before any HTML output.
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_order_id'])) {
+    $orderId = $_POST['delete_order_id'];
+    echo $orderId;
+ 
+    // Prepare the SQL statement to prevent SQL injection
+    $stmt = $conn->prepare("DELETE FROM orders WHERE orders_id = ?");
+    $stmt->bind_param("i", $orderId);
+ 
+    // Execute the query
+    if ($stmt->execute()) {
+        $_SESSION['message'] = "Order canceled successfully.";
+    } else {
+        $_SESSION['error'] = "Error deleting order: " . $conn->error;
+    }
+ 
+    // Close statement and refresh page to reflect changes
+    $stmt->close();
+    $conn->close();
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit;
+ }
+
+
+ // Fetch the user's orders
+$sql = "SELECT orders_id, image, name, quantity, total_amount FROM orders WHERE users_id = ?"; 
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Calculate the total amount
+$totalAmount = 0;
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $totalAmount += $row["total_amount"];
+    }
+    // Reset the pointer to the beginning for the upcoming display loop
+    $result->data_seek(0);
+}
+?>
+
 <table class="max-w-7xl mx-auto table-auto">
 <thead class="bg-gray-500 text-white">
 <tr>
@@ -85,13 +129,26 @@ if ($result->num_rows > 0) {
         echo '<td class="px-1 py-1">' . $row["name"] . '</td>';
         echo '<td class="px-1 py-1">' . $row["quantity"] . '</td>';
         echo '<td class="px-1 py-1">$' . $row["total_amount"] . '</td>';
-        echo '<td class="px-1 py-1"><a href="#" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Cancel</a></td>';
+        echo '<td class="px-1 py-1">
+
+        <form method="POST" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" onsubmit="return confirm(\'Are you sure you want to delete this order?\');">
+                    <input type="hidden" name="delete_order_id" value="' . $row['orders_id'] . '">
+                    <button type="submit" class="font-medium text-red-600 dark:text-blue-500 hover:underline">CANCEL</button>
+         </form>
+        
+        </td>';
         echo '</tr>';
     }
 } else {
     echo "<tr><td colspan='7' class='text-center py-4'>No orders found</td></tr>";
 }
 ?>
+
+
+
+
+
+
 </tbody>
 </table>
 </body>

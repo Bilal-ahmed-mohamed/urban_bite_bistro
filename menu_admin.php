@@ -15,10 +15,39 @@ if ($conn->connect_error) {
 }
 
 // Prepare SQL query
-$sql = "SELECT name, description, image, price FROM dish";
+$sql = "SELECT dish_id, name, description, image, price FROM dish";
 $result = $conn->query($sql);
 
+
+
+
+
+
+
+// Place this PHP code block at the beginning of your PHP script, before any HTML output.
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_menu_id'])) {
+    $menuId = $_POST['delete_menu_id'];
+ 
+    // Prepare the SQL statement to prevent SQL injection
+    $stmt = $conn->prepare("DELETE FROM dish WHERE dish_id = ?");
+    $stmt->bind_param("i", $menuId);
+ 
+    // Execute the query
+    if ($stmt->execute()) {
+        echo "<p>menu deleted successfully.</p>";
+    } else {
+        echo "<p>Error deleting menu: " . $conn->error . "</p>";
+    }
+ 
+    // Close statement and refresh page to reflect changes
+    $stmt->close();
+    header("Location: ".$_SERVER['PHP_SELF']);
+    exit;
+ }
+$conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +130,13 @@ $result = $conn->query($sql);
                 echo '<td class="px-6 py-4">' . $row["description"] . '</td>';
                 echo '<td class="px-6 py-4"><img src="Images/' . $row["image"] . '" alt="' . $row["name"] . '" style="width: 100px; height: auto;"></td>';
                 echo '<td class="px-6 py-4">ksh ' . $row["price"] . '</td>';
-                echo '<td class="px-6 py-4"><a href="#" class="font-medium text-red-600 dark:text-blue-500 hover:underline">DELETE</a></td>';
+                echo '<td class="px-6 py-4">  
+                <form method="POST" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'" onsubmit="return confirm(\'Are you sure you want to delete this order?\');">
+                    <input type="hidden" name="delete_menu_id" value="' . $row['dish_id'] . '">
+                    <button type="submit" class="font-medium text-red-600 dark:text-blue-500 hover:underline">CANCEL</button>
+                </form>
+                
+                </td>';
                 echo '</tr>';
             }
         } else {
@@ -114,9 +149,7 @@ $result = $conn->query($sql);
 
     </div>
 
-<?php
-$conn->close();
-?>
+
 
 </body>
 </html>
