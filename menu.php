@@ -36,7 +36,7 @@ $result = $conn->query($sql);
 
     <ul class=" w-64  flex justify-around items-center ">
         <li><a href="">Menu</a></li>
-        <!-- <li><a href="">Table Reservation</a></li> -->
+        <li><a href="./orders.php">Cart</a></li>
     </ul>
 
     <div class="w-60 flex justify-around items-center">

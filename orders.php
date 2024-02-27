@@ -106,7 +106,11 @@ if ($result->num_rows > 0) {
     // Reset the pointer to the beginning for the upcoming display loop
     $result->data_seek(0);
 }
+
+
+// echo $totalAmount;
 ?>
+
 
 <table class="max-w-7xl mx-auto table-auto">
 <thead class="bg-gray-500 text-white">
@@ -145,11 +149,14 @@ if ($result->num_rows > 0) {
 ?>
 
 
-
-
-
-
 </tbody>
 </table>
+
+
+<div class="bg-gray-300 max-w-7xl mx-auto p-4 mt-16">
+    <div class="max-w-xl mx-auto text-center">
+        <h1 class="text-lg font-semibold text-4xl text-gray-800">Your Total Amount To Be Paid: <span class="text-4xl text-red-600"><?php echo $totalAmount; ?></span></h1>
+    </div>
+</div>
 </body>
 </html>
